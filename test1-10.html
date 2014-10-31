@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>game</title>
+	<style>
+	*{margin:0;padding:0;list-style:none;}
+	body{padding:100px;}
+	.current{color:#0f0;}
+	.current1{color:#f00;}
+	.current2{color:#00f;}
+	p[data-id]{
+		border:1px solid #ccc;
+	}
+	</style>
+</head>
+<body>
+	<h1>1111</h1>
+    <p>2222</p>
+    <button>click</button>
+<script src="danPro.js"></script>
+<script>
+$(window).ready(function(){
+	$("button").on('click',function(){
+		$("h1").append($("p").detach());
+	});
+	$("h1").on('click',function(){
+		$("h1").empty();
+	});
+});
+</script>
+</body>
+</html>
