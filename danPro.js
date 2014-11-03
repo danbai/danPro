@@ -457,10 +457,16 @@
 			this.elems.innerHTML="";
 		},
 		html:function(para){
-
+			if (arguments.length == 0) {
+				return this.elems.innerHTML;
+			}
+			else {
+				this.elems.innerHTML = para;
+				return this;
+			}
 		},
-		text:function(){
-
+		text:function(para){
+			
 		},
 		val:function(){
 
