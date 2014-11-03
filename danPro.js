@@ -443,20 +443,24 @@
 			}
 			return this;
 		},
-		clone:function(){
+		removeAttr: function(attr) {
+			this.elems.removeAttribute(attr);
+			return this;
+		},
+		clone: function() {
 			return this.elems.cloneNode(true);
 		},
-		detach:function(){
+		detach: function() {
 			this.elems.parentNode.removeChild(this.elems);
 			return this;
 		},
-		remove:function(){
+		remove: function() {
 			this.elems.parentNode.removeChild(this.elems);
 		},
-		empty:function(){
-			this.elems.innerHTML="";
+		empty: function() {
+			this.elems.innerHTML = "";
 		},
-		html:function(para){
+		html: function(para) {
 			if (arguments.length == 0) {
 				return this.elems.innerHTML;
 			}
@@ -465,12 +469,67 @@
 				return this;
 			}
 		},
-		text:function(para){
+		text: function(para) {
 			
 		},
-		val:function(){
+		val: function() {
 
-		}	
+		},
+		unwrap: function() {
+			this.elems.parentNode.outerHTML = this.elems.parentNode.innerHTML;
+			return this;
+		},
+		wrap: function(para) {
+			if (typeof para === "string") {
+				var re = /<(\w+)>/;
+				var sTag = para.match(re)[1];
+				this.elems.outerHTML='<' + sTag+ '>' + this.elems.outerHTML + '</' + sTag + '>';
+			}
+			if (typeof para === "object") {
+				if ("elems" in para) {
+					para.append(this.elems);
+				}
+				else {
+					this.before(para);
+					para.appendChild(this.elems);
+				}
+			}
+			return this;
+		},
+		wrapInner: function(para) {
+			if (typeof para === "string") {
+				var re = /<(\w+)>/;
+				var sTag = para.match(re)[1];
+				this.elems.innerHTML = '<' + sTag+ '>' + this.elems.innerHTML + '</' + sTag + '>';
+			}
+			if (typeof para === "object") {
+				if ("elems" in para) {
+					para.elems.innerHTML = this.elems.innerHTML;
+					this.elems.innerHTML = para.elems.outerHTML;
+				}
+				else {
+					para.innerHTML = this.elems.innerHTML;
+					this.elems.innerHTML = para.outerHTML;
+				}
+			}
+			return this;
+		},
+		//jquery css操作
+		css: function(style,value) {
+			if (arguments.length == 1) {
+				if (typeof style === "string") {
+					return getStyle(this.elems, style);
+				}
+				else {
+					for (var i in style){
+						this.elems.style[i] = style[i];
+					}
+				}
+			}
+			else if (arguments.length == 2) {
+				this.elems.style[style] = value;
+			}
+		}
 	}
 	window.$ = function() {
 		return new fnClass(arguments[0]);
