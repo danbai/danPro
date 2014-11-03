@@ -9,22 +9,20 @@
 	.current{color:#0f0;font-size:12px;}
 	.current1{color:#f00;}
 	.current2{color:#00f;}
+	div{width:100px;height:100px;border:1px solid #ccc;padding:2px;margin:3px;}
 	</style>
 </head>
 <body>
-	<div>
-		<h2>哈哈</h2>
-	</div>
-	<h1 class="current" id="demo">1111</h1>
-    <p>1111</p>
-    <p>2222</p>
+	<div>22</div>
     <button>click</button>
+    <input type="text" value="22">
 <script src="danPro.js"></script>
 <script>
 $(window).ready(function(){
-	$("button").on('click', function() {
-		console.log($("h1").css("font-size"));
-		$("h1").css({"background" : "#0f0", "border" : "1px solid #ccc"});
+	$("button").on('click', function(){
+		console.log($("div").height());
+		console.log($(window).height());
+		console.log($("body").height());
 	});
 });
 </script>

@@ -206,20 +206,6 @@
 			}
 			return this;
 		},
-		height:function(param){
-			if(param||param==0){
-				this.elems.style.height=param+"px";
-				return this;
-			}
-			return this.elems.clientHeight;
-		},
-		width:function(param){
-			if(param){
-				this.elems.style.width=param+"px";
-				return this;
-			}
-			return this.elems.clientWidth;
-		},
 		slideDown:function(time){
 			this.show();
 			var nOldHeight=this.height();
@@ -470,10 +456,28 @@
 			}
 		},
 		text: function(para) {
-			
+			var content = this.elems.textContent;
+			if (para === undefined) {
+				return content || this.elems.innerText;
+			}
+			else {
+				if (content) {
+					this.elems.textContent = para;
+				}
+				else {
+					this.elems.innerText = para;
+				}
+				return this;
+			}
 		},
-		val: function() {
-
+		val: function(para) {
+			if (arguments.length == 0) {
+				return this.elems.value;
+			}
+			else {
+				this.elems.value = para;
+			}
+			return this;
 		},
 		unwrap: function() {
 			this.elems.parentNode.outerHTML = this.elems.parentNode.innerHTML;
@@ -483,7 +487,7 @@
 			if (typeof para === "string") {
 				var re = /<(\w+)>/;
 				var sTag = para.match(re)[1];
-				this.elems.outerHTML='<' + sTag+ '>' + this.elems.outerHTML + '</' + sTag + '>';
+				this.elems.outerHTML = '<' + sTag+ '>' + this.elems.outerHTML + '</' + sTag + '>';
 			}
 			if (typeof para === "object") {
 				if ("elems" in para) {
@@ -529,6 +533,74 @@
 			else if (arguments.length == 2) {
 				this.elems.style[style] = value;
 			}
+		},
+		height: function(param) {
+			if (param) {
+				this.elems.style.height = param + "px";
+				return this;
+			}
+			else {
+				if (this.elems === window) {
+					return document.documentElement.clientHeight;
+				}
+				else if (this.elems === document.body){
+					return document.body.clientHeight
+				}
+				else {
+					return parseFloat(getStyle(this.elems, "height"));
+				}
+			}
+		},
+		width: function(param) {
+			if (param) {
+				this.elems.style.width = param + "px";
+				return this;
+			}
+			else {
+				if (this.elems === window) {
+					return document.documentElement.clientWidth;
+				}
+				else if (this.elems === document.body){
+					return document.body.clientWidth
+				}
+				else {
+					return parseFloat(getStyle(this.elems, "width"));
+				}
+			}
+		},
+		innerHeight: function(param) {
+			if (param || param == 0) {
+				this.elems.style.height = param - (parseFloat(getStyle(this.elems, "padding-top")) + parseFloat(getStyle(this.elems, "padding-bottom"))) + "px";
+				return this;
+			}
+			return this.elems.clientHeight;
+		},
+		innerWidth: function(param) {
+			if (param || param == 0) {
+				this.elems.style.width = param - (parseFloat(getStyle(this.elems, "padding-left")) + parseFloat(getStyle(this.elems, "padding-right"))) + "px";
+			}
+		},
+		outerHeight: function(param) {
+			if (param === true || param === undefined) {
+				if (param) {
+					return this.innerHeight() + parseFloat(getStyle(this.elems, "border-top")) + parseFloat(getStyle(this.elems, "border-bottom")) + parseFloat(getStyle(this.elems, "margin-top")) + parseFloat(getStyle(this.elems, "margin-bottom")); 
+				}
+				else {
+					return this.innerHeight() + parseFloat(getStyle(this.elems, "border-top")) + parseFloat(getStyle(this.elems, "border-bottom"));
+				}
+			}
+			else {
+				this.elems.style.height = param - (parseFloat(getStyle(this.elems, "padding-top")) + parseFloat(getStyle(this.elems, "padding-bottom")) + parseFloat(getStyle(this.elems, "border-top")) + parseFloat(getStyle(this.elems, "border-bottom"))) + "px"; 
+			}
+		},
+		offsetParent: function() {
+
+		},
+		offset: function() {
+
+		},
+		position: function() {
+			
 		}
 	}
 	window.$ = function() {
