@@ -594,14 +594,85 @@
 			}
 		},
 		offsetParent: function() {
-
+			var oParent = this.elems.parentNode;
+			while (oParent != document.body && !getStyle(oParent, "position").match(/absolute|relative|fixed/)){	//==="static"
+				oParent = oParent.parentNode;
+			}
+			return oParent;
 		},
-		offset: function() {
-
+		offset: function(o) {
+			if (arguments.length == 0) {
+				var x = this.elems.offsetLeft, y = this.elems.offsetTop, oParent = this.elems.parentNode;
+				while (oParent != document.body){
+					x += oParent.offsetLeft;
+					y += oParent.offsetTop;
+					oParent = oParent.parentNode;
+				} 
+				return {
+					left: x,
+					top: y
+				}
+			}
+			else if(arguments.length == 1) {
+				var sPosition = getStyle(this.elems, "position");
+				if (sPosition == "static") {
+					this.elems.style.position = "relative";
+				}
+				var x = o.left, y = o.top, oParent = this.elems.parentNode;
+				while (oParent != document.body) {
+					x -= oParent.offsetLeft;
+					y -= oParent.offsetTop;
+					oParent = oParent.parentNode;
+				}
+				this.elems.style.left = x + "px";
+				this.elems.style.top = y + "px";
+			}
 		},
 		position: function() {
-			
+			return {
+				left: this.elems.offsetLeft,
+				top: this.elems.offsetTop
+			}
+		},
+		scrollLeft: function() {
+			if (arguments.length == 0) {
+				if (this.elems == document.body) {
+					return document.body.scrollLeft || document.documentElement.scrollLeft;
+				}
+				else {
+					return this.elems.scrollLeft;
+				}
+			}
+			else if(arguments.length == 1) {
+				if (this.elems == document.body){
+					document.body.scrollLeft = param;
+					document.documentElement.scrollLeft = param;
+				}
+				else {
+					this.elems.scrollLeft = param;
+				}
+			}
+		},
+		scrollTop: function(param) {
+			if (arguments.length == 0) {
+				if (this.elems == document.body) {
+					return document.body.scrollTop || document.documentElement.scrollTop;
+				}
+				else {
+					return this.elems.scrollTop;
+				}
+			}
+			else if(arguments.length == 1) {
+				if (this.elems == document.body){
+					document.body.scrollTop = param;
+					document.documentElement.scrollTop = param;
+				}
+				else {
+					this.elems.scrollTop = param;
+				}
+			}
 		}
+		//jquery ajax
 	}
 	window.$ = function() {
 		return new fnClass(arguments[0]);

@@ -9,20 +9,20 @@
 	.current{color:#0f0;font-size:12px;}
 	.current1{color:#f00;}
 	.current2{color:#00f;}
-	div{width:100px;height:100px;border:1px solid #ccc;padding:2px;margin:3px;}
+	div{width:100px;height:100px;border:1px solid #ccc;position:relative;overflow:auto;}
+	p{width:50px;height:50px;border:1px solid #ccc;position:absolute;left:10px;top:10px;}
 	</style>
 </head>
-<body>
-	<div>22</div>
-    <button>click</button>
-    <input type="text" value="22">
+<body style="height:1000px;">
+	<div>撒大声放第三方第三方凤飞飞凤飞飞凤飞飞凤飞飞凤飞飞凤飞飞凤飞飞凤飞飞凤飞飞凤飞飞凤飞飞凤飞飞凤飞飞凤飞飞凤飞飞</div>
+	<button>click</button>
 <script src="danPro.js"></script>
 <script>
-$(window).ready(function(){
-	$("button").on('click', function(){
-		console.log($("div").height());
-		console.log($(window).height());
-		console.log($("body").height());
+$(window).ready(function() {
+	$("button").on('click', function() {
+		$("body").scrollTop(600);
+		$("div").scrollTop(100);
+		console.log($("body").scrollTop());
 	});
 });
 </script>
