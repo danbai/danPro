@@ -671,10 +671,115 @@
 					this.elems.scrollTop = param;
 				}
 			}
+		},
+		//jquery遍历
+		children: function(param) {
+			if (arguments.length == 0) {
+				return this.elems.children;
+			}
+			else {
+				var aChild = this.elems.children;
+				for (var i = 0; i < aChild.length; i++) {
+					if (aChild[i].tagName.toLowerCase() == param) {
+						return aChild[i];
+					}
+				}
+			}
+			return null;
+		},
+		contents: function(param) {
+			if (arguments.length == 0) {
+				return this.elems.childNodes;
+			}
+			else {
+				var aChild = this.elems.childNodes;
+				for (var i = 0; i < aChild.length; i++) {
+					if (aChild[i].nodeType == 1) {
+						if (aChild[i].tagName.toLowerCase() == param) {
+							return aChild[i];
+						}
+					}
+					else if (aChild[i].nodeType == 3) {
+						if (aChild[i].nodeValue.replace(/\s*/g,"") == param) {
+							return aChild[i];
+						}
+					}
+				}
+			}
+			return null;
+		},
+		find: function(param) {
+			var aRes = [];
+			var aChild = this.elems.children;	//["p","h1","h2","span"]
+			function findNode(a) {	//递归,一层一层去寻找合适的子元素,直到没有子元素
+				for (var i = 0; i < a.length; i++) {	//["p","h1","h2","span"]   ["span"],["span","em","span"]
+					if (a[i].tagName.toLowerCase() == param) {
+						aRes.push(a[i]);	//["span"]
+					}
+					if (a[i].children.length) {	//["span"],["span","em","span"]
+						findNode(a[i].children);	
+					}
+				}
+			}
+			findNode(aChild);
+			return aRes;
+		},
+		closest: function() {
+
+		},
+		offsetParent: function() {
+
+		},
+		parent: function() {
+
+		},
+		parents: function() {
+
+		},
+		parentsUntil: function() {
+
 		}
-		//jquery ajax
 	}
 	window.$ = function() {
 		return new fnClass(arguments[0]);
+	}
+	$.ajax = function(o) {
+		var xmlHttp = new XMLHttpRequest();
+		var type = o.type;
+		var url = o.url;
+		var data = o.data;
+		var str = "";
+		if (type.toLowerCase() == "get") {	//get方式将data数据加到url中
+			if (data) {
+				for (var i in data) {
+					str += i + '=' + data[i] + '&';
+				}
+				str = str.slice(0, -1);
+				if (url.indexOf("?") == -1) {
+					str = "?" + str;
+				}
+				else {
+					str = "&" + str;
+				}
+				url += str;
+			}
+		}
+		xmlHttp.open(type, url, o.async === false ? false : true);
+		if (type.toLowerCase() == "post") {	//post方式将数据发送
+			xmlHttp.send(JSON.stringify(data));
+		}
+		else {
+			xmlHttp.send();
+		}
+		xmlHttp.onreadystatechange = function() {
+			if (xmlHttp.readyState == 4) {
+				if (xmlHttp.status == 200) {
+					o.success(JSON.parse(xmlHttp.responseText));
+				}
+				else {
+					o.error(xmlHttp.status);
+				}
+			}
+		}
 	}
 }());
