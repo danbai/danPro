@@ -14,28 +14,19 @@
 	</style>
 </head>
 <body>
-	<button>click</button>
-    <div>
-        <p>
-        	<span>1111</span>
-        </p>
-        <h1>
-        	<span>2222</span>
-        	<em>5555</em>
-        	<span>6666</span>
-        </h1>
-        <h2>3333</h2>
-        <span>4444</span>
-    </div>
+	<ul>
+		<li>
+			<span>
+				<a href="javascript:;">11</a>
+			</span>
+		</li>
+	</ul>
 <script src="danPro.js"></script>
 <script>
 $(window).ready(function() {
-	$("button").on('click', function() {
-		console.log($("div").find("span"));	//["span","span","span","span"]
-		var a = $("div").find("span");
-		for (var i = 0; i < a.length; i++) {
-			a[i].className = "current";
-		}
+	$("a").on('click', function() {
+		console.log($("a").parentsUntil("ul"));
+		console.log($("a").parentsUntil("ul","li"));
 	});
 });
 </script>

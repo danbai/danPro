@@ -724,19 +724,104 @@
 			findNode(aChild);
 			return aRes;
 		},
-		closest: function() {
+		closest: function(param) {
+			var oParent = this.elems.parentNode;
+			while (oParent.tagName.toLowerCase() != param && oParent != document.body) {
+				oParent = oParent.parentNode;
+			}
+			return oParent;
+		},
+		parent: function(param) {
+			return this.elems.parentNode;
+		},
+		parents: function(param) {
+			var oParent = this.elems.parentNode;
+			var a = [oParent];
+			while (oParent.tagName.toLowerCase() != "html") {
+				oParent = oParent.parentNode;
+				a.push(oParent);
+			}	
+			if (arguments.length == 0) {
+				return a;
+			}
+			else {
+				for (var i = 0; i < a.length; i++) {
+					if (a[i].tagName.toLowerCase() == param){
+						return a[i];
+					}
+				}
+			}
+		},
+		parentsUntil: function(selector, filter) {
+			var oParent = this.elems.parentNode;
+			var a = [oParent];
+			while (oParent.tagName.toLowerCase() != selector && oParent.tagName.toLowerCase != "html") {
+				oParent = oParent.parentNode;
+				a.push(oParent);
+			}
+			if (arguments.length == 1) {
+				return a;
+			}
+			else {
+				for (var i = 0; i < a.length; i++) {
+					if (a[i].tagName.toLowerCase() == filter){
+						return a[i];
+					}
+				}
+			}
+		},
+		next: function() {
 
 		},
-		offsetParent: function() {
+		nextAll: function() {
 
 		},
-		parent: function() {
+		nextUntil: function() {
 
 		},
-		parents: function() {
+		prev: function() {
 
 		},
-		parentsUntil: function() {
+		prevAll: function() {
+
+		},
+		prevUntil: function() {
+
+		},
+		siblings: function() {
+
+		},
+		each: function() {
+
+		},
+		end: function() {
+
+		},
+		eq: function() {
+
+		},
+		filter: function() {
+
+		},
+		first: function() {
+
+		},
+		has: function() {
+
+		},
+		is: function() {
+
+		},
+		last: function() {
+
+		},
+		map :function() {
+
+		},
+		not: function() {
+
+		},
+		slice: function() {
 
 		}
 	}
