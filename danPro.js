@@ -111,16 +111,16 @@
 			}
 			return this;
 		},
-		hide:function(){
-			this.elems.style.display="none";
+		hide: function() {
+			this.elems.style.display = "none";
 			return this;
 		},
-		show:function(){
-			this.elems.style.display="block";
+		show: function() {
+			this.elems.style.display = "block";
 			return this;
 		},
-		toggle:function(){
-			if(getStyle(this.elems,"display")=="block"){
+		toggle: function(){
+			if(getStyle(this.elems,"display") == "block"){
 				this.hide();
 			}
 			else{
@@ -128,104 +128,104 @@
 			}
 			return this;
 		},
-		delay:function(callback,time){
-			setTimeout(callback,time);
+		delay: function(callback, time) {
+			setTimeout(callback, time);
 			return this;
 		},
-		fadeIn:function(time){
-			var self=this.elems;
+		fadeIn: function(time) {
+			var self = this.elems;
 			this.show();
-			var nStart=getStyle(this.elems,"opacity")*100;
-			var speed=time ? (100-nStart)/(time/30) : 10
-			var timer=setInterval(function(){
-				var nCurrent=getStyle(self,"opacity")*100;
-				if(nCurrent<100){
-					self.style.opacity=(nCurrent+speed)/100;
-					self.style.filter='alpha(opacity:'+(nCurrent+speed)+')';
+			var nStart = getStyle(this.elems, "opacity") * 100;
+			var speed = time ? (100-nStart) / (time/30) : 10
+			var timer = setInterval(function() {
+				var nCurrent = getStyle(self, "opacity") * 100;
+				if (nCurrent < 100) {
+					self.style.opacity = (nCurrent + speed) / 100;
+					self.style.filter = 'alpha(opacity:' + (nCurrent + speed) + ')';
 				}
 				else{
 					clearInterval(timer);
-					self.style.opacity=1;
-					self.style.filter='alpha(opacity:100)';
+					self.style.opacity = 1;
+					self.style.filter = 'alpha(opacity:100)';
 				}
 			},30);
 			return this;
 		},
-		fadeOut:function(time){
-			var self=this.elems;
-			var nStart=getStyle(this.elems,"opacity")*100;
-			var speed=time ? (nStart-0)/(time/30) : 10;
-			var timer=setInterval(function(){
-				var nCurrent=getStyle(self,"opacity")*100;
-				if(nCurrent>0){
-					self.style.opacity=(nCurrent-speed)/100;
-					self.style.filter='alpha(opacity:'+(nCurrent-speed)+')';
+		fadeOut: function(time) {
+			var self = this.elems;
+			var nStart = getStyle(this.elems, "opacity") * 100;
+			var speed = time ? (nStart-0) / (time / 30) : 10;
+			var timer = setInterval(function() {
+				var nCurrent = getStyle(self, "opacity") * 100;
+				if (nCurrent > 0){
+					self.style.opacity = (nCurrent - speed) / 100;
+					self.style.filter = 'alpha(opacity:' + (nCurrent-speed) + ')';
 				}
 				else{
 					clearInterval(timer);
-					self.style.opacity=0;
-					self.style.filter='alpha(opacity:0)';
-					self.style.display="none";
+					self.style.opacity = 0;
+					self.style.filter = 'alpha(opacity:0)';
+					self.style.display = "none";
 				}
-			},30);
+			}, 30);
 			return this;
 		},
-		fadeTo:function(time,nTarget){
+		fadeTo: function(time, nTarget) {
 			this.show();
-			var self=this.elems;
-			var nStart=getStyle(this.elems,"opacity")*100;
-			nTarget=nTarget*100;
-			var speed=(nTarget-nStart)/(time/30);
-			if(speed>0){
-				var timer=setInterval(function(){
-					var nCurrent=getStyle(self,"opacity")*100;
-					if(nCurrent<nTarget){
-						self.style.opacity=(nCurrent+speed)/100;
-						self.style.filter='alpha(opacity:'+(nCurrent+speed)+')';
+			var self = this.elems;
+			var nStart = getStyle(this.elems, "opacity") * 100;
+			nTarget = nTarget * 100;
+			var speed = (nTarget - nStart) / (time / 30);
+			if (speed > 0) {
+				var timer = setInterval(function() {
+					var nCurrent = getStyle(self, "opacity") * 100;
+					if (nCurrent < nTarget) {
+						self.style.opacity = (nCurrent + speed) / 100;
+						self.style.filter = 'alpha(opacity:' + (nCurrent + speed) + ')';
+					}
+					else {
+						clearInterval(timer);
+						self.style.opacity = nTarget / 100;
+						self.style.filter = 'alpha(opacity:' + nTarget + ')';
+					}
+				}, 30);
+			}
+			else if (speed < 0) {
+				var timer = setInterval(function() {
+					var nCurrent = getStyle(self, "opacity") * 100;
+					if (nCurrent > nTarget) {
+						self.style.opacity = (nCurrent + speed) / 100;
+						self.style.filter = 'alpha(opacity:' + (nCurrent + speed) + ')';
 					}
 					else{
 						clearInterval(timer);
-						self.style.opacity=nTarget/100;
-						self.style.filter='alpha(opacity:'+nTarget+')';
+						self.style.opacity = nTarget / 100;
+						self.style.filter = 'alpha(opacity:' + nTarget + ')';
 					}
-				},30);
-			}
-			else if(speed<0){
-				var timer=setInterval(function(){
-					var nCurrent=getStyle(self,"opacity")*100;
-					if(nCurrent>nTarget){
-						self.style.opacity=(nCurrent+speed)/100;
-						self.style.filter='alpha(opacity:'+(nCurrent+speed)+')';
-					}
-					else{
-						clearInterval(timer);
-						self.style.opacity=nTarget/100;
-						self.style.filter='alpha(opacity:'+nTarget+')';
-					}
-				},30);
+				}, 30);
 			}
 			return this;
 		},
-		slideDown:function(time){
+		slideDown: function(time) {
 			this.show();
-			var nOldHeight=this.height();
+			var nOldHeight = this.height();
 			this.height(0);
-			this.animate({"height":nOldHeight+"px"},time);
+			this.animate({"height": nOldHeight + "px"}, time);
 			return this;
 		},
-		slideUp:function(time){
-			var self=this;
-			var nOldHeight=this.height();
-			this.animate({"height":0+"px"},time,function(){
+		slideUp: function(time) {
+			var self = this;
+			var nOldHeight = this.height();
+			this.animate({"height": 0 + "px"}, time, function() {
 				self.hide().height(nOldHeight);
 			});
 			return this;
 		},
-		slideToggle:function(time){
-			if(getStyle(this.elems,"display")=="none"){
+		slideToggle: function(time) {
+			if (getStyle(this.elems,"display") == "none") {
 				this.slideDown(time);
 			}
-			else{
+			else {
 				this.slideUp(time);
 			}
 			return this;
