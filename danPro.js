@@ -771,25 +771,83 @@
 			}
 		},
 		next: function() {
-			//addadd
+			var e = this.elems.nextSibling;
+			while (e && e.nodeType != 1) {
+				e = e.nextSibling;
+			}
+			return e;
 		},
-		nextAll: function() {
-
+		nextAll: function(param) {
+			var e = this.elems;
+			var a = [];
+			while (e && e.nextSibling) {
+				e = e.nextSibling;
+				if (e.nodeType == 1 && e.tagName.toLowerCase() !== "style") {
+					a.push(e);
+				}
+			}
+			if (arguments.length == 0) {
+				return a;
+			}
+			for (var i = 0; i < a.length; i++) {
+				if (a[i].tagName.toLowerCase() === param.toLowerCase()) {
+					return a[i];
+				}
+			}
 		},
-		nextUntil: function() {
-
+		nextUntil: function(param) {
+			var e = this.elems;
+			var a = [];
+			while (e && e.nextSibling) {
+				e = e.nextSibling;
+				if (e.nodeType == 1) {
+					a.push(e);
+					if (e.tagName.toLowerCase() === param.toLowerCase()) {
+						return a;
+					}
+				}
+			}
 		},
 		prev: function() {
-
+			var e = this.elems.previousSibling;
+			while (e && e.nodeType != 1) {
+				e = e.previousSibling;
+			}
+			return e;
 		},
-		prevAll: function() {
-
+		prevAll: function(param) {
+			var e = this.elems;
+			var a = [];
+			while (e && e.previousSibling) {
+				e = e.previousSibling;
+				if (e.nodeType == 1) {
+					a.push(e);
+				}
+			}
+			if (arguments.length == 0) {
+				return a;
+			}
+			for (var i = 0; i < a.length; i++) {
+				if (a[i].tagName.toLowerCase() === param.toLowerCase()) {
+					return a[i];
+				}
+			}
 		},
-		prevUntil: function() {
-
+		prevUntil: function(param) {
+			var e = this.elems;
+			var a = [];
+			while (e && e.previousSibling) {
+				e = e.previousSibling;
+				if (e.nodeType == 1) {
+					a.push(e);
+					if (e.tagName.toLowerCase() === param.toLowerCase()) {
+						return a;
+					}
+				}
+			}
 		},
 		siblings: function() {
-
+			//addadd
 		},
 		each: function() {
 

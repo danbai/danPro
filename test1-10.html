@@ -14,21 +14,25 @@
 	</style>
 </head>
 <body>
+	<p>1111</p>
 	<ul>
-		<li>
-			<span>
-				<a href="javascript:;">11</a>
-			</span>
-		</li>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
 	</ul>
-<script src="danPro.js"></script>
-<script>
-$(window).ready(function() {
-	$("a").on('click', function() {
-		console.log($("a").parentsUntil("ul"));
-		console.log($("a").parentsUntil("ul","li"));
+	<h1>2222</h1>
+	<script src="danPro.js"></script>
+	<script>
+	$(window).ready(function() {
+		$(document).on('click', function() {;
+			console.log($("h1").prevUntil("ul"));
+			console.log($("h1").prevAll("p"));
+			$("h1").prevAll("p").className = "current";
+		});
 	});
-});
-</script>
+	</script>
+	<h2>2222</h2>
 </body>
 </html>
