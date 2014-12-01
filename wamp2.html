@@ -6,14 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <p>ddddd</p>
+    <p>ddddd<span>span</span></p>
     <h1>ddddd</h1>
 </body>
     <script src="jquery.js"></script>
     <script>
     $(function() {
-        console.log($("h1").nextAll());
-        console.log($("h1").nextAll("h2"));
+        $("p").find("span").css("font-size", "50px").end().addClass("current");
     });
     </script>
     <h2>22</h2>

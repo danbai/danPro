@@ -846,37 +846,59 @@
 				}
 			}
 		},
-		siblings: function() {
-			//addadd
+		siblings: function(param) {
+			var aChild = this.elems.parentNode.children;
+			var a = [];
+			for (var i = 0; i < aChild.length; i++) {
+				if (aChild[i].id.toLowerCase() !== this.elems.id.toLowerCase()) {
+					a.push(aChild[i]);
+				}
+			}
+			if (arguments.length != 0) {
+				for (var i = 0; i < a.length; i++) {
+					if (a[i].id.toLowerCase() === param.toLowerCase()) {
+						return a[i];
+					}
+				}
+			}
+			return a;
 		},
-		each: function() {
-
+		each: function(a, callback) {
+			for (var i = 0; i < a.length; i++) {
+				callback(a[i]);
+			}
 		},
-		end: function() {
-
+		eq: function(a, index) {
+			return a[index];
 		},
-		eq: function() {
-
+		filter: function(a, sFilter) {
+			for (var i = 0; i < a.length; i++) {
+				if (a[i].id.toLowerCase() === sFilter.toLowerCase()) {
+					return a[i];
+				}
+			}
 		},
-		filter: function() {
-
+		not: function(a, sNot) {
+			for (var i = 0; i < a.length; i++) {
+				if (a[i].id.toLowerCase() === sNot.toLowerCase()) {
+					a.splice(i, 1);
+				}
+			}
+			return a;
 		},
-		first: function() {
-
+		first: function(a) {
+			return a[0];
+		},
+		last: function(a) {
+			return a[a.length - 1];
 		},
 		has: function() {
-
+			//addadd
 		},
 		is: function() {
 
 		},
-		last: function() {
-
-		},
 		map :function() {
-
-		},
-		not: function() {
 
 		},
 		slice: function() {
