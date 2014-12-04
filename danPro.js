@@ -892,16 +892,75 @@
 		last: function(a) {
 			return a[a.length - 1];
 		},
-		has: function() {
-			//addadd
+		has: function(param) {
+			function hasParam(e, param) {	//h1
+				for (var i = 0; i < e.children.length; i++) {
+					if (e.children[i].tagName.toLowerCase() === param.toLowerCase()) {
+						return true;	//return出第二次调用的函数
+					}
+					else {
+						if (e.children[i].children.length) {
+							if (hasParam(e.children[i], param)) {	//如果函数调用是true,则return出整个函数,放置循环又再次执行
+								return true;
+							}
+						}	
+					}
+				}
+				return false;
+			}
+			return hasParam(this.elems, param);
 		},
-		is: function() {
+		is: function(param) {	//h1,.current,#current
+			var rParam = /^(\.)?(\#)?(\w+)$/;
+			var aMatch = param.match(rParam);	//["",".","#","current"]
+			if (aMatch) {
+				var rMatch = new RegExp('\\b' + aMatch[3] + '\\b');
+				if (aMatch[1]) {
+					if (this.elems.className.match(rMatch)) {
+						return true;
+					}
+				}
+				else if (aMatch[2]) {
+					if (this.elems.id.match(rMatch)) {
+						return true;
+					}
+				}
+				else {
+					if (this.elems.tagName.toLowerCase().match(rMatch)) {
+						return true;
+					}
+				}
+			}
+			return false;
+		},
+		map: function() {
+			return Array.prototype.slice.call(arguments);
+		},
+		slice: function(a, nStart, nStop) {
+			return a.slice(nStart, nStop);
+		},
+		//jquery数据
+		data: function() {
 
 		},
-		map :function() {
+		removeData: function() {
 
 		},
-		slice: function() {
+		//jquery DOM元素
+		get: function() {
+
+		},
+		index: function() {
+
+		},
+		size: function() {
+
+		},
+		toArray: function() {
+
+		},
+		//jquery核心
+		noConflict: function() {
 
 		}
 	}

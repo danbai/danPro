@@ -4,16 +4,27 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>Document</title>
+    <style>
+    .current {
+        color: #0f0;
+    }
+    </style>
 </head>
 <body>
-    <p>ddddd<span>span</span></p>
-    <h1>ddddd</h1>
+    <p></p>
+    <input type="text" value="11">
+    <input type="text" value="22">
+    <input type="text" value="33">
 </body>
     <script src="jquery.js"></script>
     <script>
     $(function() {
-        $("p").find("span").css("font-size", "50px").end().addClass("current");
+        $(document).on('click', function() {
+            var a = $("input").map(function() {
+                return $(this).val();
+            }).get();
+            $("p").append(a.join(","));
+        });
     });
     </script>
-    <h2>22</h2>
 </html>
