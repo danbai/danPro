@@ -11,19 +11,24 @@
     </style>
 </head>
 <body>
-    <p></p>
-    <input type="text" value="11">
-    <input type="text" value="22">
-    <input type="text" value="33">
+    <p id="demo" data-name="danbai">4444</p>
+    <div>
+        <p id="aaa">1111</p>
+        <h2>2222</h2>
+        <p>3333</p>
+    </div>
 </body>
     <script src="jquery.js"></script>
     <script>
     $(function() {
-        $(document).on('click', function() {
-            var a = $("input").map(function() {
-                return $(this).val();
-            }).get();
-            $("p").append(a.join(","));
+        var danbai = $.noConflict();
+        danbai(document).on('click', function() {
+            console.log(danbai("#aaa").index()); //0
+            console.log(danbai("p").index(danbai("#aaa")));   //1
+        });
+        danbai("#aaa").on('click', function() {
+            console.log(danbai(this).index());
+            console.log(danbai("p").index(this));
         });
     });
     </script>

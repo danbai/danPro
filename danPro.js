@@ -940,28 +940,43 @@
 			return a.slice(nStart, nStop);
 		},
 		//jquery数据
-		data: function() {
-
+		data: function(attr, dataAttr) {
+			if (arguments.length === 1) {
+				return this.elems.getAttribute(attr);
+			}
+			this.elems.setAttribute(attr, dataAttr);
+			return this;
 		},
-		removeData: function() {
-
+		removeData: function(attr) {
+			if (this.elems.hasAttribute(attr)) {
+				this.elems.removeAttribute(attr);
+			}
 		},
 		//jquery DOM元素
-		get: function() {
-
+		get: function(a, nIndex) {
+			return a[nIndex];
 		},
-		index: function() {
-
+		index: function(a, n) {
+			for (var i = 0; i < a.length; i++) {
+				if (a[i] === n) {
+					return i;
+				}
+			}
+			return -1;
 		},
-		size: function() {
-
+		size: function(a) {
+			return a.length;
 		},
 		toArray: function() {
-
+			return Array.prototype.slice.call(arguments);
 		},
 		//jquery核心
 		noConflict: function() {
-
+			var fun = function() {
+				return new fnClass(arguments[0]);
+			}
+			window.$ = null;
+			return fun;
 		}
 	}
 	window.$ = function() {

@@ -12,17 +12,13 @@
 	</style>
 </head>
 <body>
-	<p></p>
-    <h1 id="danbai">
-        2222
-        <p><span>3333</span></p>
-    </h1>
+	<p id="demo" class="aaa" data-name="danbai"></p>
 	<script src="danPro.js"></script>
 	<script>
 	$(window).ready(function() {
-		$(document).on('click', function() {
-			var a = $("h1").slice([11,22,33,44,55], 1, 3);
-			$("p").append(a.join(","));
+		var g = $("#demo").noConflict();
+		g("#demo").on('click', function() {
+			g("#demo").addClass("current");
 		});
 	});
 	</script>
